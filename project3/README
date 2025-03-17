@@ -1,1 +1,42 @@
+Ritwika Das - rd935
 
+Design:
+- Conflicts with Piping and Redirection
+  - when pipeline is estabished between two processes, but the output of the first process is directed somewhere
+    else, then the second process should have nothing to read from stdin
+  - if the input of the second process is redirected to another file, the second file will read from the redirection
+    rather than the pipe
+
+
+Testing:
+- Tokenizer
+  - after recieving a command line, the line passes into the tokenizer function to parse the line into tokens. 
+    Then the tokens are added onto the arraylist to be executed.
+  - the tokenizer uses whitespace as a delimiter while also counting any dir characters (< and >) and the pipe 
+    character | as their own tokens. 
+  - Test Cases
+    - "cd subdir": parses the line as cd and subdir into two tokens
+    - "echo hello": whitespace in front is ignored
+    - "cd sub": whitespace in front and end are ignored
+    - "foo bar < baz | quuz*.txt > spam": test is both redirect and pipe characters count as their own tokens
+    - "cd boo<bar": see if they get seperated properly
+    - "foo<bar<baz": multiple redirection tokens could be seperated despute the whitespace
+    - "src/*": wildcard expansion test
+    - ">*": invalid as a wildcard token cannot be after redirect
+    - "<*.c": invalid 
+    - "|*": invalid 
+    - "*|": invalid
+
+- ArrayList
+  - arraylist_tester is made to run the tests for arraylist.c
+  - each line in the file is sent to the tokenizer to parse the line for tokens.
+    The tokens are then pushed into the arraylist to be executed later.
+  - in each iteration, a character from the end of the alphabet was removed, shrinking the line count by one
+
+- Mysh
+  - tests has some shell scripts to run in mysh's batch mode
+  - made prpgrams which interact with arguments, take input frm stdin and writes to stdout to test the shell's pipe
+    and redirection functions
+  - reader and print_args can be used to test mysh 
+    - reader: reads from stdin, prints to stdout, stops after the first encounter of z
+    - print_args: prints the number of args and each arg to std out
