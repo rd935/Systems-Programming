@@ -1,1 +1,30 @@
+Ritwika Das - rd935
 
+Design
+- first I had to set up a function that would process a given directory, which uses
+  the built-in functions opendir and readdir to go through the text file(s) in the directory
+
+- then came to build a function that would process a text file and go through each word to compare
+  it to the dictionary given. This one uses the built-in functions fopen, fgets to get each word within
+  the lines of the text file
+
+- then the third function was to check if the word chosen from the text file was actually in the dictionary,
+  which is quite simple in which strcmp was use to look into every word in the dictionary and compare if its the same.
+  If the word is not found in the dictionary, then this function returns a 0, which then goes to the text file function
+  and states that the word in the line and column is incorrect. To account for hyphens, I also made a sub-word check function, 
+  so whenever a hyphen is found within a word, it will split that word and check each part seperately for misspellings 
+  and then determine if the word is correct or not.
+  
+- the last function was to load the dictionary that is given in the command line, which is quite similar to the text file function,
+  which uses fopen and fgets to go through the words in the dictionary and allocate memory for them. However, I used heap allocation 
+  to make the process go much faster since the dictionary is likely to have hundreds of thousands of words.
+
+
+Test Scenarios/Cases
+- at first I tested it with one text file and changed the layout to have different columns and rows to make sure the 
+  locations were outputting correctly
+- next I tested the code with multiple different text files of different lengths, such as some that were a few lines and others
+  that were full on paragraphs of texts
+- the last test was creating a directory in the different location separate from the code folder, and seeing if the directory
+  function was working the way it was supposed to. This directory also had multiple text files within it to make sure it was
+  still outputting the correct errors throughout each text file.
